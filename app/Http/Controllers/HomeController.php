@@ -91,7 +91,11 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
+        //dump($request->task_data);
+        $task = Task::findOrFail($request->task_data);
+        $task->delete();
+        return redirect()->route('home');
     }
 }
