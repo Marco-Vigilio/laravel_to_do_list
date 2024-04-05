@@ -12,4 +12,9 @@ class Task extends Model
     protected $fillable = [
         'task',
     ];
+
+    public function lista()
+    {
+        $this->belongsTo(Lista::class);
+    }
 }
