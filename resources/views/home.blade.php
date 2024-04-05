@@ -17,9 +17,10 @@
                     @endif
 
                     <ul class="list-group list-group-flush">
-                        @foreach ($tasks as $task)
-                        <li class="list-group-item">
-                            {{ $task->task }}
+                        @foreach ($tasks as $taskData)
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{ $taskData->task }}
+                            <i class="fa-regular fa-circle-xmark"></i>
                         </li>
                         @endforeach
                     </ul>
