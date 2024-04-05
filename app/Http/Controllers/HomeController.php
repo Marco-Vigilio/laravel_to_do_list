@@ -57,6 +57,7 @@ class HomeController extends Controller
             'task' => ['required'],
         ]);
 
+        $data['done'] = false;
         // Crea la nuova task associandola direttamente alla lista dell'utente corrente
         $newTask = $lista->tasks()->create($data);
 
