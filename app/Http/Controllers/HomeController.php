@@ -38,15 +38,6 @@ class HomeController extends Controller
         // Passa le task alla vista
         return view('home', compact('tasks'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view("home");
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -56,16 +47,20 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-    }
+        $user = Auth::user();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+        // Recupera la lista associata all'utente corrente
+        $lista = $user->lista;
+
+        // Convalida i dati della richiesta
+        $data = $request->validate([
+            'task' => ['required'],
+        ]);
+
+        // Crea la nuova task associandola direttamente alla lista dell'utente corrente
+        $newTask = $lista->tasks()->create($data);
+
+        return redirect()->route('home');
     }
 
     /**

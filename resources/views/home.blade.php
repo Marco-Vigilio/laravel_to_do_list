@@ -16,9 +16,11 @@
                     </div>
                     @endif
 
-                    <ul>
+                    <ul class="list-group list-group-flush">
                         @foreach ($tasks as $task)
-                        <li>{{ $task->task }}</li>
+                        <li class="list-group-item">
+                            {{ $task->task }}
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -27,14 +29,11 @@
             <form action="{{ route('home')}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @error('title')
-                <div class="alert alert-danger">{{ $message }}</div>
+                @error('task')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
-                <div class="mb-3">
-                    <label for="exampleFormControlInput" class="form-label">
-                        Title
-                    </label>
-                    <input type="text" class="form-control" id="title" placeholder="Insert your task" name="task" value="{{ old('task', '')}}">
+                <div class="my-3">
+                    <input type="text" class="form-control" id="task" placeholder="Insert your task" name="task" value="{{ old('task', '')}}">
                 </div>
 
 
