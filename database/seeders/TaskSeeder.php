@@ -17,12 +17,15 @@ class TaskSeeder extends Seeder
         $tasks = [
             [
                 'task' => 'Fare il letto',
+                'done' => true,
             ],
             [
                 'task' => 'Sport',
+                'done' => false,
             ],
             [
                 'task' => 'Leggere',
+                'done' => false,
             ],
         ];
 
@@ -37,6 +40,8 @@ class TaskSeeder extends Seeder
                 $newTask->lista_id = $lista->id;
                 // Imposta il task corrente
                 $newTask->task = $taskData['task'];
+                // Imposta task da fare
+                $newTask->done = $taskData['done'];
                 // Salva il task
                 $newTask->save();
             }
