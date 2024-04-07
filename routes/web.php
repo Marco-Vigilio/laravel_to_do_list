@@ -22,4 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('task.store');
+Route::put('/home/{id}', [App\Http\Controllers\HomeController::class, 'update'])->name('task.update');
+Route::patch('/home', [App\Http\Controllers\HomeController::class, 'update']); // PATCH route for update
 Route::delete('/home', [App\Http\Controllers\HomeController::class, 'destroy'])->name('task.destroy');
