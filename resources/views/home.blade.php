@@ -19,11 +19,24 @@
                     <ul class="list-group list-group-flush">
                         @foreach ($tasks as $taskData)
                         <li class="list-group-item d-flex justify-content-between">
-                            {{ $taskData->task }}
+                            <span class="border border-primary col-12 updateTaskSpan" style="cursor: pointer;">
+                                <form class="updateTaskForm" action="{{route('task.update', $taskData)}}" class="d-inline form-terminator" method="POST" enctype="multipart/form-data">
+
+                                    @csrf
+                                    @method ('PUT')
+                                    <span class="border border-secondary">
+                                        {{ $taskData->task }}
+                                    </span>
+
+                                    <input type="hidden" name="id" value="{{ $taskData->id }}">
+                                    <input type="hidden" name="task" value="{{ $taskData->task }}">
+                                    <input type="hidden" name="done" value="{{ $taskData->done }}">
+                                </form>
+                            </span>
                             <form action="{{route('task.destroy', $taskData)}}" class="d-inline form-terminator" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="task_data" value="{{ $taskData->id }}">
+                                <input type="hidden" name="id" value="{{ $taskData->id }}">
                                 <button type="submit" class="btn btn-sm btn-warning me-2">
                                     <i class="fa-regular fa-circle-xmark"></i>
                                 </button>
