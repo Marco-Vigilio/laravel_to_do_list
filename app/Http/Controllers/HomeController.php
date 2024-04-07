@@ -65,24 +65,24 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
-    {
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        //dump($request->all());
+        $task = Task::findOrFail($id);
+        if ($task->done === 0) {
+            $task->done = 1;
+            $task->update();
+        } else {
+            $task->done = 0;
+            $task->update();
+        }
+        return redirect()->route('home');
     }
 
     /**
@@ -94,7 +94,7 @@ class HomeController extends Controller
     public function destroy(Request $request)
     {
         //dump($request->task_data);
-        $task = Task::findOrFail($request->task_data);
+        $task = Task::findOrFail($request->id);
         $task->delete();
         return redirect()->route('home');
     }
