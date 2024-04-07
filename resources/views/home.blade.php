@@ -24,7 +24,7 @@
 
                                     @csrf
                                     @method ('PUT')
-                                    <span class="border border-secondary">
+                                    <span class="border border-secondary {{ $taskData->done == 1 ? 'toDo' : '' }}">
                                         {{ $taskData->task }}
                                     </span>
 
