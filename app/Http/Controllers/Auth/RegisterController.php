@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Task;
+use App\Models\Lista;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -68,5 +74,40 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if ($validator->fails()) {
+            // Personalizza il messaggio di errore per la password troppo corta
+            if ($validator->errors()->has('password')) {
+                $errorMessage = $validator->errors()->first('password');
+                return redirect()->back()->withInput()->withErrors(['password' => $errorMessage]);
+            }
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        // Creazione del nuovo utente
+        $user = $this->create($request->all());
+
+        // Creazione della lista e della task di esempio per il nuovo utente
+        $lista = new Lista();
+        $lista->user_id = $user->id;
+        $lista->save();
+
+        $task = new Task();
+        $task->lista_id = $lista->id;
+        $task->task = "Esempio di task, tocca per completare";
+        $task->done = 0;
+        $task->save();
+
+        return Redirect::route('login');
     }
 }
