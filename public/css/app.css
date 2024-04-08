@@ -1,3 +1,11 @@
 .toDo{
     text-decoration: line-through;
 }
+i{
+    font-size: 1.5rem;
+    color: rgb(235, 0, 0);
+}
+span{
+    display: flex;
+    align-items: center;
+}

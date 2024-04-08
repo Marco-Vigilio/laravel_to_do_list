@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    Oggi
+                <div class="card-header text-center">
+                    {{ date('l j F') }}
                 </div>
 
                 <div class="card-body">
@@ -19,12 +19,12 @@
                     <ul class="list-group list-group-flush">
                         @foreach ($tasks as $taskData)
                         <li class="list-group-item d-flex justify-content-between">
-                            <span class="border border-primary col-12 updateTaskSpan" style="cursor: pointer;">
+                            <span class="col-10 updateTaskSpan" style="cursor: pointer;">
                                 <form class="updateTaskForm" action="{{route('task.update', $taskData)}}" class="d-inline form-terminator" method="POST" enctype="multipart/form-data">
 
                                     @csrf
                                     @method ('PUT')
-                                    <span class="border border-secondary {{ $taskData->done == 1 ? 'toDo' : '' }}">
+                                    <span class=" {{ $taskData->done == 1 ? 'toDo' : '' }}">
                                         {{ $taskData->task }}
                                     </span>
 
@@ -37,7 +37,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $taskData->id }}">
-                                <button type="submit" class="btn btn-sm btn-warning me-2">
+                                <button type="submit" style="cursor: pointer;" class="btn d-flex align-items-center border-light">
                                     <i class="fa-regular fa-circle-xmark"></i>
                                 </button>
                             </form>
@@ -60,10 +60,10 @@
 
 
                 <div class="mb-3">
-                    <button type="submit">
+                    <button type="submit" class="btn btn-dark">
                         Create new task
                     </button>
-                    <button type="reset">
+                    <button type="reset" class="btn btn-dark">
                         Reset
                     </button>
                 </div>
